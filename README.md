@@ -1,2 +1,2 @@
-# Learn-C-
+# Learn C++
 learn C++ and github
