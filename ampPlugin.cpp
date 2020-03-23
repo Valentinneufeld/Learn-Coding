@@ -25,3 +25,22 @@ instantiate(const LV2_Descriptor*           descriptor,
     return (LV2_Handle) amp;
 }
 
+static void 
+connect_port(LV2_Handle instance,
+             uint32_t   port,
+             void*      data)
+{
+    Amp* amp = (Amp*) instance;
+    
+    switch ((PortIndex)port) {
+    case AMP_GAIN:
+        amp->gain = (const float*)data;
+        break;
+    case AMP_INPUT:
+        amp->input = (const float*)data;
+        break;
+    case AMP_OUTPUT:
+        amp-> = output = (float*)data;
+        break;
+    }
+}
