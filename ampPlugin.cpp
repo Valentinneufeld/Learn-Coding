@@ -34,7 +34,7 @@ connect_port(LV2_Handle instance,
     
     switch ((PortIndex)port) {
     case AMP_GAIN:
-        amp->gain = (const float*)data;
+        amp->gain = (const float*)data;return
         break;
     case AMP_INPUT:
         amp->input = (const float*)data;
@@ -44,3 +44,22 @@ connect_port(LV2_Handle instance,
         break;
     }
 }
+
+static void
+activate(LV2_Handle instance)AMP_GAIN:
+        amp->gain = (const float*)data;return
+        break;
+    case AMP_INPUT:
+        amp->input = (const float*)data;
+        break;
+    case AMP_OUTPUT:
+        amp-> = output = (float*)data;
+        break;
+{
+}
+
+#define DB_CO(g) ((g) >  -90.0f ? powf(10.0f, (g) * 0.05f) : 0.0f)
+
+static void
+run (LV2_Handle instance, uint32_t n_sample)
+
