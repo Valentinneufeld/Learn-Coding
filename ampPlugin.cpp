@@ -8,22 +8,35 @@
 
 #define AMP_URI "http://example.com"
 
+
+typedef enum {
+    AMP_GAIN    = 0,
+    AMP_INPUT   = 1,
+    AMP_OUTPUT  = 2
+} PortIndex;
+
+
+
 typedef struct {
     const float*    gain;
     const float*    input;
     float*          output;
 }Amp;
-    
+
+
+
 static LV2_Handle
 instantiate(const LV2_Descriptor*           descriptor,
             const double                    rate,
-            const char*                     bundle path,
-            const LV2_Feature* const*       feature)
+            const char*                     bundle_path,
+            const LV2_Feature* const*       features)
 {
     Amp* amp = (Amp*)calloc(1, sizeof(Amp));
     
     return (LV2_Handle) amp;
 }
+
+
 
 static void 
 connect_port(LV2_Handle instance,
@@ -34,13 +47,13 @@ connect_port(LV2_Handle instance,
     
     switch ((PortIndex)port) {
     case AMP_GAIN:
-        amp->gain = (const float*)data;return
+        amp->gain = (const float*)data;
         break;
     case AMP_INPUT:
         amp->input = (const float*)data;
         break;
     case AMP_OUTPUT:
-        amp-> = output = (float*)data;
+        amp->output = (float*)data;
         break;
     }
 }
