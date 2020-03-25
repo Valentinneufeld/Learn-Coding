@@ -59,15 +59,7 @@ connect_port(LV2_Handle instance,
 }
 
 static void
-activate(LV2_Handle instance)AMP_GAIN:
-        amp->gain = (const float*)data;return
-        break;
-    case AMP_INPUT:
-        amp->input = (const float*)data;
-        break;
-    case AMP_OUTPUT:
-        amp-> = output = (float*)data;
-        break;
+activate(LV2_Handle instance)
 {
 }
 
@@ -75,6 +67,29 @@ activate(LV2_Handle instance)AMP_GAIN:
 
 static void
 run (LV2_Handle instance, uint32_t n_sample)
+{
+    const Amp* amp = (const Amp*)instance;
+
+    const float         gain    = *(amp->gain);
+    const float* const  input   = amp->input;
+    float* const        output  = amp->output;
+
+    const float coef = DB_CO(gain);
+
+    for (int32_t pos = 0; pos < n_sample; pos++) {
+        output[pos] = input[pos] * coef;
+    }
+}
+
+static void
+deactivate(LV2_Handle instance)
+{
+}
 
 
+static void
+cleanup(LV2_Handle instance)
+{
+    free (instance);
+}
 
