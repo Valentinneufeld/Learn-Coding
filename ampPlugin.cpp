@@ -93,3 +93,29 @@ cleanup(LV2_Handle instance)
     free (instance);
 }
 
+static const void*
+extension_data(const char* uri)
+{
+    return NULL;
+}
+
+static const LV2_Descriptor descriptor = {
+    AMP_URI,
+    instantiate,
+    connect_port,
+    activate,
+    run, 
+    deactivate,
+    cleanup,
+    extension_data
+};
+
+LV2_SYMBOL_EXPORT
+const LV2_Descriptor*
+lv2_descriptor(uint32_t index)
+{
+    switch (index) {
+        case 0: return &descriptor;
+        default: return NULL;
+    }
+}
